@@ -9,7 +9,6 @@ import css from './css/Styles.module.css';
 
 export const App = () => {
   const [photos, setPhotos] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [modalItem, setModalItem] = useState(null);
@@ -26,7 +25,6 @@ export const App = () => {
     fetchPhotos(search, page)
       .then(result => {
         setPhotos(prevPhotos => [...prevPhotos, ...result.hits]);
-        // setLoading(false);
         setError(false);
         setIsLoading(false);
         setPage(page);
@@ -65,11 +63,7 @@ export const App = () => {
   return (
     <>
       <SearchBar update={updateSearch} />
-      <ImageGallery
-        // search={this.state.search}
-        photos={photos}
-        onShowModal={showModal}
-      />
+      <ImageGallery photos={photos} onShowModal={showModal} />
       {page < pageCount && <Button onLoadMore={onLoadMore} />}
       {isEmpty && (
         <p className={css.sorry}> Sorry, there are no photos available</p>

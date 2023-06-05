@@ -1,37 +1,34 @@
 import css from '../css/Styles.module.css';
-import { Component } from 'react';
+import { useEffect } from 'react';
 import propTypes from 'prop-types';
 
-export class Modal extends Component {
-  // add key Esc for Close
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDwn);
-  }
-  // remove Esc after Close
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDwn);
-  }
-  handleKeyDwn = e => {
-    if (e.key === 'Escape') {
-      this.props.closeModal('');
-    }
-  };
-  handleOverlayClick = e => {
+export const Modal = ({ closeModal, item }) => {
+  useEffect(() => {
+    const handleKeyDwn = e => {
+      if (e.key === 'Escape') {
+        closeModal('');
+      }
+    };
+    document.addEventListener('keydown', handleKeyDwn);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDwn);
+    };
+  }, [closeModal]);
+
+  const handleOverlayClick = e => {
     if (e.target === e.currentTarget) {
-      this.props.closeModal('');
+      closeModal('');
     }
   };
 
-  render() {
-    return (
-      <div className={css.overlay} onClick={this.handleOverlayClick}>
-        <div className={css.modal}>
-          <img src={this.props.item.largeImageURL} alt={this.props.item.tags} />
-        </div>
+  return (
+    <div className={css.overlay} onClick={handleOverlayClick}>
+      <div className={css.modal}>
+        <img src={item.largeImageURL} alt={item.tags} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Modal.propTypes = {
   closeModal: propTypes.func.isRequired,
