@@ -6,11 +6,10 @@ import { Modal } from './Modal/Modal';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
 import css from './css/Styles.module.css';
-import propTypes from 'prop-types';
 
 export const App = () => {
   const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [modalItem, setModalItem] = useState(null);
@@ -27,7 +26,7 @@ export const App = () => {
     fetchPhotos(search, page)
       .then(result => {
         setPhotos(prevPhotos => [...prevPhotos, ...result.hits]);
-        setLoading(false);
+        // setLoading(false);
         setError(false);
         setIsLoading(false);
         setPage(page);
@@ -51,7 +50,7 @@ export const App = () => {
     setSearch(searchLine);
     setPage(1);
     setPageCount(1);
-    setLoading(false);
+    setIsLoading(false);
     setError(false);
     setIsEmpty(false);
   };
@@ -82,8 +81,4 @@ export const App = () => {
       {isLoading && <Loader />}
     </>
   );
-};
-
-App.propsTypes = {
-  search: propTypes.string,
 };
