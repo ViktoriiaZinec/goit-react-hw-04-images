@@ -75,6 +75,9 @@ export const App = () => {
       {isEmpty && (
         <p className={css.sorry}> Sorry, there are no photos available</p>
       )}
+      {error && (
+        <p className={css.sorry}> Sorry, there are no photos available</p>
+      )}
       {modalItem && <Modal item={modalItem} closeModal={closeModal}></Modal>}
       {isLoading && <Loader />}
     </>
